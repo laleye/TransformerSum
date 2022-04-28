@@ -1154,11 +1154,11 @@ class ExtractiveSummarizer(pl.LightningModule):
         selected_ids = sorted_ids[0, :num_summary_sentences]
         logger.debug("Selected sentence ids: %s", selected_ids)
 
-        if return_ids:
-            return selected_ids
 
         selected_sents = []
         selected_ids.sort()
+        if return_ids:
+            return selected_ids
         for i in selected_ids:
             selected_sents.append(src_txt[i])
 
