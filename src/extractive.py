@@ -1164,7 +1164,7 @@ class ExtractiveSummarizer(pl.LightningModule):
 
         return " ".join(selected_sents).strip()
 
-    def predict(self, input_text: str, raw_scores=False, num_summary_sentences=3):
+    def predict(self, input_text: str, raw_scores=False, num_summary_sentences=3,  return_ids=False,):
         """Summarizes ``input_text`` using the model.
 
         Args:
@@ -1174,6 +1174,8 @@ class ExtractiveSummarizer(pl.LightningModule):
             num_summary_sentences (int, optional): The number of sentences in the
                 output summary. This value specifies the number of top sentences to
                 select as the summary. Defaults to 3.
+            return_ids (bool, optional): Return the ids of selected sentences. if True
+                return only ids without sentences and raw scores.
 
         Returns:
             str: The summary text. If ``raw_scores`` is set then returns a list
@@ -1188,6 +1190,7 @@ class ExtractiveSummarizer(pl.LightningModule):
             raw_scores=raw_scores,
             num_summary_sentences=num_summary_sentences,
             tokenized=True,
+            return_ids=return_ids,
         )
 
     @staticmethod
