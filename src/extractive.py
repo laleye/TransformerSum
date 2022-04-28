@@ -1066,6 +1066,7 @@ class ExtractiveSummarizer(pl.LightningModule):
         raw_scores=False,
         num_summary_sentences=3,
         tokenized=False,
+        return_ids=False,
     ):
         """Summarizes ``input_sentences`` using the model.
 
@@ -1083,6 +1084,8 @@ class ExtractiveSummarizer(pl.LightningModule):
                 using spacy. If true, ``input_sentences`` should be a list of lists
                 where the outer list contains sentences and the inner lists contain
                 tokens. Defaults to False.
+            return_ids (bool, optional): Return the ids of selected sentences. if True
+                return only ids without sentences and raw scores.
 
         Returns:
             str: The summary text. If ``raw_scores`` is set then returns a list
@@ -1150,6 +1153,9 @@ class ExtractiveSummarizer(pl.LightningModule):
         logger.debug("Sorted sentence ids: %s", sorted_ids)
         selected_ids = sorted_ids[0, :num_summary_sentences]
         logger.debug("Selected sentence ids: %s", selected_ids)
+
+        if return_ids:
+            return selected_ids
 
         selected_sents = []
         selected_ids.sort()
